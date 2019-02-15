@@ -1,4 +1,4 @@
-# Chat
+# h3-p2021-e19-chat
 
 This is a school project at [HETIC](https://www.hetic.net/)
 

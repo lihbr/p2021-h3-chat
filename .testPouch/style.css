@@ -1,0 +1,11 @@
+#sync-error, #sync-success {
+  display: none;
+}
+
+[data-sync-state=syncing] #sync-success {
+  display: block;
+}
+
+[data-sync-state=error] #sync-error {
+  display: block;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>testPouch</title>
+    <script src="https://cdn.jsdelivr.net/npm/pouchdb@7.0.0/dist/pouchdb.min.js"></script>
+    <script src="script.js" defer="defer"></script>
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h3>PouchDB Chat</h3>
+    <div class="well">
+      <input id="chat-name" type="text" placeholder="Enter name" />
+      <input id="chat-message" type="text" placeholder="Enter message" />
+      <button id="new-message-button" class="btn btn-primary">Chat</button>
+      <p></p>
+      <div id="sync-wrapper">
+        <div id="sync-success" class="alert alert-success">
+          Status: sync working. Be patient.
+        </div>
+        <div id="sync-error" class="alert alert-danger">
+          Status: sync failed. Try refreshing the page.
+        </div>
+      </div>
+      <p></p>
+      <ul id="chat-messages" class="list-group"></ul>
+    </div>
+  </body>
+</html>
