@@ -22,3 +22,7 @@ $ yarn run generate
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+
+## Notes
+
+- `auto_compaction: true` on local
