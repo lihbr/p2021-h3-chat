@@ -33,7 +33,7 @@ async function start() {
   app.use(nuxt.render);
 
   // temp
-  app.all("/db", (req, res) => {
+  app.all("/db/*", (req, res) => {
     couchProxy.web(req, res);
   });
   // temp
