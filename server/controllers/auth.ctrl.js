@@ -2,19 +2,32 @@
  * Imports
  */
 // Inner
-const { response } = require("../services/response.format");
-const couch = require("../services/couch.serv.js");
+// Models
+const auth = require("../models/auth.models");
+
+// Helpers
+const { checkFields } = require("../helpers/request.checker");
+const { response } = require("../helpers/response.format");
 
 /**
  * Config
  */
 exports.signUp = (req, res) => {
-  couch
-    .put("/test_express", true)
+  const check = checkFields(["name", "pass"], req.body);
+
+  if (!check.ok) {
+    check.res = res;
+    return response.error(check);
+  }
+
+  const { name, pass } = req.body;
+
+  auth
+    .signUp(name, pass)
     .then(data => {
-      response.success({ res, data });
+      return response.success({ res, status: 201, msg: "User created", data });
     })
     .catch(error => {
-      response.error({ res, error });
+      return response.error({ res, msg: "internal server error", error });
     });
 };

@@ -2,6 +2,9 @@
  * Check required field from body
  */
 exports.checkFields = (required, body) => {
+  if (typeof body === "undefined" || body === null) {
+    return { ok: false, status: 400, msg: "no body data provided" };
+  }
   const miss = [];
   const extra = [];
 
@@ -19,5 +22,10 @@ exports.checkFields = (required, body) => {
   const ok = extra.length === 0 && miss.length === 0;
 
   // Return service state
-  return { ok, extra, miss };
+  return {
+    ok,
+    status: 400,
+    msg: "failed to check fields",
+    error: { miss: miss, extra: extra }
+  };
 };
