@@ -28,7 +28,8 @@ const talk = ({
   body = null,
   admin = false,
   method = "GET",
-  json = true
+  json = true,
+  includeHeader = false
 } = {}) => {
   // Default options object
   const options = {
@@ -47,6 +48,11 @@ const talk = ({
 
   // Execute as admin if needed
   if (admin) options.headers.Authorization = auth;
+
+  // Include header if requested
+  if (includeHeader) {
+    options.transform = (body, res) => ({ headers: res.headers, body });
+  }
 
   // If sending something
   if (body) {

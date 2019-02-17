@@ -16,6 +16,7 @@ class AuthRouterClass {
   routes() {
     authRouter.post("/signup", authController.signUp);
     authRouter.post("/signin", authController.signIn);
+    authRouter.post("/changepassword", authController.changePassword);
   }
 
   init() {

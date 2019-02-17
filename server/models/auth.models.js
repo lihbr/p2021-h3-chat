@@ -11,6 +11,10 @@ const _usersPrefix = "org.couchdb.user";
 /**
  * Config
  */
+
+/**
+ * UserExists
+ */
 exports.userExists = async ({ name, email }) => {
   let ok = false,
     result;
@@ -62,35 +66,65 @@ exports.userExists = async ({ name, email }) => {
   return { ok, msg };
 };
 
+/**
+ * SignUp
+ */
 exports.signUp = ({ name, email, password }) => {
   const user = {
-    private: {
-      name,
-      password,
-      roles: ["member"],
-      type: "user",
-      email
-    },
+    name,
+    password,
+    roles: ["member"],
+    type: "user",
+    email,
     public: {
-      owner: name
+      pp: null,
+      desc: null
     }
   };
 
-  const userPrivate = {
+  const options = {
     db: "_users",
     doc: `${_usersPrefix}:${name}`,
-    body: user.private,
+    body: user,
     admin: true
   };
 
-  const userPublic = {
-    db: "chat_users_public",
-    doc: `user_${name}`,
-    body: user.public,
-    admin: true
-  };
-
-  return Promise.all([couch.put(userPrivate), couch.put(userPublic)]);
+  return couch.put(options);
 };
 
-exports.signIn = ({ name, password }) => {};
+/**
+ * SignIn
+ */
+exports.signIn = ({ name, password }) => {
+  const options = {
+    db: "_session",
+    body: { name, password },
+    includeHeader: true
+  };
+
+  return couch.post(options);
+};
+
+/**
+ * ChangePassword
+ */
+exports.changePassword = async ({ name, newPassword }) => {
+  let user;
+
+  const options = {
+    db: "_users",
+    doc: `${_usersPrefix}:${name}`,
+    admin: true
+  };
+
+  try {
+    user = await couch.get(options);
+  } catch (error) {
+    return error;
+  }
+
+  user.password = newPassword;
+  options.body = user;
+
+  return couch.put(options);
+};

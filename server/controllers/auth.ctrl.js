@@ -1,6 +1,9 @@
 /**
  * Imports
  */
+// Express
+const rp = require("request-promise-native");
+
 // Inner
 // Models
 const auth = require("../models/auth.models");
@@ -11,6 +14,10 @@ const { response } = require("../helpers/response.format");
 
 /**
  * Config
+ */
+
+/**
+ * SignUp
  */
 exports.signUp = async (req, res) => {
   const check = checkFields(["name", "email", "password", "confirm"], req.body);
@@ -40,13 +47,25 @@ exports.signUp = async (req, res) => {
   auth
     .signUp(req.body)
     .then(data => {
-      return response.success({ res, status: 201, msg: "user created", data });
+      return auth.signIn(req.body);
+    })
+    .then(data => {
+      res.set("set-cookie", data.headers["set-cookie"]);
+      response.success({
+        res,
+        status: 201,
+        msg: "user created and logged in",
+        data: data.body
+      });
     })
     .catch(error => {
       return response.error({ res, msg: "internal server error", error }, true);
     });
 };
 
+/**
+ * SignIn
+ */
 exports.signIn = (req, res) => {
   const check = checkFields(["name", "password"], req.body);
 
@@ -60,14 +79,50 @@ exports.signIn = (req, res) => {
   auth
     .signIn(req.body)
     .then(data => {
+      res.set("set-cookie", data.headers["set-cookie"]);
+      return response.success({ res, msg: "user logged in", data: data.body });
+    })
+    .catch(error => {
+      return response.error({ res, msg: "internal server error", error });
+    });
+};
+
+/**
+ * ChangePassword
+ */
+exports.changePassword = (req, res) => {
+  const check = checkFields(
+    ["name", "password", "newPassword", "confirm"],
+    req.body
+  );
+
+  if (!check.ok) {
+    check.res = res;
+    return response.error(check);
+  }
+
+  if (req.body.newPassword !== req.body.confirm) {
+    return response.error({
+      res,
+      status: 400,
+      msg: "new passwords do not match"
+    });
+  }
+
+  auth
+    .signIn(req.body)
+    .then(data => {
+      return auth.changePassword(req.body);
+    })
+    .then(data => {
       return response.success({
         res,
-        status: 200,
-        msg: "user logged in",
-        data
+        msg: "password changed",
+        data: data.body
       });
     })
     .catch(error => {
+      console.log(error);
       return response.error({ res, msg: "internal server error", error });
     });
 };

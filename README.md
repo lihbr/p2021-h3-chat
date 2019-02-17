@@ -32,25 +32,21 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - \_users > default config
 
-  - signUp > pouchdb-auth
-  - logIn > pouchdb-auth
-  - logOut > pouchdb-auth
-  - changePassword > pouchdb-auth
-
-- public_users > everybody read, some can write something
-
-  - createProfile > pouchdb
-  - editProfile > pouchdb
+  - signUp > express > done
+  - logIn > express > done
+  - logOut > pouchdb > wip
+  - changePassword > express > done
+  - editProfile > pouchdb > wip
 
 - channels > everybody read, some can write something
 
-  - createChannels > express
+  - createChannels > express > wip
     { name, slug, owner, hash}
-  - listChannels > pouchdb
-  - joinChannels > express
+  - listChannels > pouchdb > wip
+  - joinChannels > express > wip
 
 * channels\_:slug > role + everybody read, some can write something > sync/change
-  - readMessages > pouchdb
-  - postMessages > pouchdb
+  - readMessages > pouchdb > wip
+  - postMessages > pouchdb > wip
 
 > express: create needed endpoint that check auth with given token and then execute admin task
