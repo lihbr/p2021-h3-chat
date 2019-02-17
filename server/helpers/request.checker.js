@@ -2,15 +2,17 @@
  * Check required field from body
  */
 exports.checkFields = (required, body) => {
+  let ok = false;
+
   if (typeof body === "undefined" || body === null) {
-    return { ok: false, status: 400, msg: "no body data provided" };
+    return { ok, status: 400, msg: "no body data provided" };
   }
   const miss = [];
   const extra = [];
 
   // Check missing fields
   required.forEach(prop => {
-    if (!(prop in body)) miss.push(prop);
+    if (!(prop in body) || !body[prop]) miss.push(prop);
   });
 
   // Check extra fields
@@ -19,7 +21,7 @@ exports.checkFields = (required, body) => {
   }
 
   // Set service state
-  const ok = extra.length === 0 && miss.length === 0;
+  ok = extra.length === 0 && miss.length === 0;
 
   // Return service state
   return {

@@ -15,6 +15,7 @@ const authRouter = Router();
 class AuthRouterClass {
   routes() {
     authRouter.post("/signup", authController.signUp);
+    authRouter.post("/signin", authController.signIn);
   }
 
   init() {
