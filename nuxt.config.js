@@ -132,6 +132,7 @@ module.exports = {
   env: {
     // api_url: process.env.API_URL,
     pkg_name: process.env.NAME || pkg.name,
-    pkg_desc: process.env.DESC || pkg.description
+    pkg_desc: process.env.DESC || pkg.description,
+    couch_serv: process.env.COUCH_SERV || "127.0.0.1:5984"
   }
 };

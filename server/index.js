@@ -1,48 +1,71 @@
+/**
+ * Imports
+ */
+// Misc
 require("dotenv").config();
-const express = require("express");
 const consola = require("consola");
+
+// Express
+const express = require("express");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+
+// Nuxt
 const { Nuxt, Builder } = require("nuxt");
-const httpProxy = require("http-proxy");
 
-const couchProxy = httpProxy.createProxyServer({
-  target: "127.0.0.1:5984"
-});
+// Inner
+const mainRouter = require("./routes/main.router");
 
-const app = express();
-const host = process.env.HOST || "127.0.0.1";
+/**
+ * Config
+ */
+// Main
+const server = express();
 const port = process.env.PORT || 3000;
 
-app.set("port", port);
-
 // Import and Set Nuxt.js options
-let config = require("../nuxt.config.js");
+const config = require("../nuxt.config.js");
 config.dev = !(process.env.NODE_ENV === "production");
 
-async function start() {
-  // Init Nuxt.js
-  const nuxt = new Nuxt(config);
+class ServerClass {
+  async init() {
+    // Set port
+    server.set("port", port);
 
-  // Build only in dev mode
-  if (config.dev) {
-    console.log(process.env.NODE_ENV);
-    const builder = new Builder(nuxt);
-    await builder.build();
+    // Init Nuxt.js
+    const nuxt = new Nuxt(config);
+
+    // Build only in dev mode
+    if (!process.env.EXPRESS_ONLY && config.dev) {
+      const builder = new Builder(nuxt);
+      await builder.build();
+    }
+
+    // Body-parser
+    server.use(bodyParser.json({ limit: "10mb" }));
+    server.use(bodyParser.urlencoded({ extended: true }));
+
+    // Cookie-parser
+    server.use(cookieParser());
+
+    // Main router
+    server.use("/", mainRouter);
+
+    // Give nuxt middleware to express, default fallback
+    server.use(nuxt.render);
+
+    // Save server
+    this.launch();
   }
 
-  // Give nuxt middleware to express
-  app.use(nuxt.render);
-
-  // temp
-  app.all("/db/*", (req, res) => {
-    couchProxy.web(req, res);
-  });
-  // temp
-
-  // Listen the server
-  app.listen(port, host);
-  consola.ready({
-    message: `Server listening on http://${host}:${port}`,
-    badge: true
-  });
+  launch() {
+    server.listen(server.get("port"), () => {
+      consola.ready({
+        message: `Server listening on port: ${server.get("port")}`,
+        badge: true
+      });
+    });
+  }
 }
-start();
+
+new ServerClass().init();
