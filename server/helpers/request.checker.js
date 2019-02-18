@@ -21,12 +21,12 @@ exports.checkFields = (required, body) => {
   }
 
   // Set service state
-  ok = extra.length === 0 && miss.length === 0;
+  ok = miss.length === 0;
 
   // Return service state
   return {
     ok,
-    status: 400,
+    status: 422,
     msg: "failed to check fields",
     error: { miss: miss, extra: extra }
   };

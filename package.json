@@ -21,6 +21,7 @@
     "docuri": "^4.2.2",
     "dotenv": "^6.2.0",
     "express": "^4.16.3",
+    "express-validator": "^5.3.1",
     "nuxt": "^2.0.0",
     "pouchdb": "^7.0.0",
     "pouchdb-find": "^7.0.0",

@@ -50,3 +50,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - postMessages > pouchdb > wip
 
 > express: create needed endpoint that check auth with given token and then execute admin task
+
+## TODO
+
+- Prevent manual email edit via DD

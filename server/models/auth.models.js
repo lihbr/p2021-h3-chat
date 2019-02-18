@@ -113,8 +113,7 @@ exports.changePassword = async ({ name, newPassword }) => {
 
   const options = {
     db: "_users",
-    doc: `${_usersPrefix}:${name}`,
-    admin: true
+    doc: `${_usersPrefix}:${name}`
   };
 
   try {

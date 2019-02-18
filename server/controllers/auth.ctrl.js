@@ -19,19 +19,19 @@ const { response } = require("../helpers/response.format");
 /**
  * SignUp
  */
-exports.signUp = async (req, res) => {
+exports.signUp = async (req, res, next) => {
   const check = checkFields(["name", "email", "password", "confirm"], req.body);
 
   if (!check.ok) {
     check.res = res;
-    return response.error(check);
+    return response.error(check, true);
   }
 
   // Include user error here
 
   // Checking if passwords match
   if (req.body.password !== req.body.confirm) {
-    return response.error({ res, status: 400, msg: "passwords do not match" });
+    return response.error({ res, status: 422, msg: "passwords do not match" });
   }
 
   // Checking if user already exist
@@ -40,23 +40,14 @@ exports.signUp = async (req, res) => {
   // Error if can't check of if mail
   if (userExists.error || userExists.ok) {
     userExists.res = res;
-    userExists.status = 400;
+    userExists.status = 409;
     return response.error(userExists);
   }
 
   auth
     .signUp(req.body)
     .then(data => {
-      return auth.signIn(req.body);
-    })
-    .then(data => {
-      res.set("set-cookie", data.headers["set-cookie"]);
-      response.success({
-        res,
-        status: 201,
-        msg: "user created and logged in",
-        data: data.body
-      });
+      next();
     })
     .catch(error => {
       return response.error({ res, msg: "internal server error", error }, true);
@@ -71,7 +62,7 @@ exports.signIn = (req, res) => {
 
   if (!check.ok) {
     check.res = res;
-    return response.error(check);
+    return response.error(check, true);
   }
 
   // Include user error here
@@ -98,13 +89,13 @@ exports.changePassword = (req, res) => {
 
   if (!check.ok) {
     check.res = res;
-    return response.error(check);
+    return response.error(check, true);
   }
 
   if (req.body.newPassword !== req.body.confirm) {
     return response.error({
       res,
-      status: 400,
+      status: 422,
       msg: "new passwords do not match"
     });
   }
