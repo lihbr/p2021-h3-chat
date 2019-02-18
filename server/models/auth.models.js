@@ -2,6 +2,7 @@
  * Imports
  */
 // Misc
+const md5 = require("md5");
 
 // Inner
 const couch = require("../helpers/couch.serv.js");
@@ -75,21 +76,42 @@ exports.signUp = ({ name, email, password }) => {
     password,
     roles: ["member"],
     type: "user",
-    email,
-    public: {
-      pp: null,
-      desc: null
-    }
+    email
   };
 
-  const options = {
+  const privateUser = {
     db: "_users",
     doc: `${_usersPrefix}:${name}`,
     body: user,
     admin: true
   };
 
-  return couch.put(options);
+  const publicUser = {
+    db: "chat_users_public",
+    doc: `${name}`,
+    body: {
+      _id: user.name,
+      owner: user.name,
+      pp: null,
+      md5: md5(user.email),
+      desc: null
+    },
+    admin: true
+  };
+
+  return new Promise((resolve, reject) => {
+    couch
+      .put(privateUser)
+      .then(() => {
+        return couch.put(publicUser);
+      })
+      .then(data => {
+        resolve(data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
 };
 
 /**

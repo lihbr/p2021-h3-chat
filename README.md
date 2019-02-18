@@ -43,7 +43,8 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - createChannels > express > wip
     { name, slug, owner, hash}
   - listChannels > pouchdb > wip
-  - joinChannels > express > wip
+  - joinChannel > express > wip
+  - leaveChannel > express > wip
 
 * channels\_:slug > role + everybody read, some can write something > sync/change
   - readMessages > pouchdb > wip
@@ -53,4 +54,5 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 ## TODO
 
-- Prevent manual email edit via DD
+- Login via mail
+- Express validator

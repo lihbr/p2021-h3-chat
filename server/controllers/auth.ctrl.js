@@ -46,7 +46,7 @@ exports.signUp = async (req, res, next) => {
 
   auth
     .signUp(req.body)
-    .then(data => {
+    .then(() => {
       next();
     })
     .catch(error => {
@@ -74,7 +74,7 @@ exports.signIn = (req, res) => {
       return response.success({ res, msg: "user logged in", data: data.body });
     })
     .catch(error => {
-      return response.error({ res, msg: "internal server error", error });
+      return response.error({ res, msg: "internal server error", error }, true);
     });
 };
 
@@ -91,6 +91,8 @@ exports.changePassword = (req, res) => {
     check.res = res;
     return response.error(check, true);
   }
+
+  // Include user error here
 
   if (req.body.newPassword !== req.body.confirm) {
     return response.error({

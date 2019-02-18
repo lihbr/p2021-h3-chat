@@ -6,6 +6,7 @@ const { Router } = require("express");
 
 // Inner
 const AuthRouterClass = require("./auth.router");
+const ChanRouterClass = require("./chan.router");
 
 /**
  * Config
@@ -21,6 +22,7 @@ const authRouter = new AuthRouterClass();
 mainRouter.use("/api", apiRouter);
 
 apiRouter.use("/auth", authRouter.init());
+apiRouter.use("/chan", chanRouter.init());
 
 /**
  * Export
