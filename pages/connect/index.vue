@@ -20,11 +20,11 @@ export default {
 
 <style scoped lang="stylus">
 .connect
+  flex 1
   margin verticalMargin column
   display flex
   align-items stretch
   justify-content center
-  width 100%
   @media screen and (max-width: mobile)
     margin globalMargin * 0.5 globalMargin
     align-items center

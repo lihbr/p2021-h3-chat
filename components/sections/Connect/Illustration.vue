@@ -21,7 +21,7 @@ export default {
   line-height 60px
   font-weight 700
   color accent
-  background url("~assets/img/connectBG.png") no-repeat
+  background url("~assets/img/signIn.svg") no-repeat
   background-position 50% 100%
   background-size contain
   margin-right column

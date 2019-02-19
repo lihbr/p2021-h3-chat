@@ -30,7 +30,7 @@ html
 
 .globalContainer
   min-height 100vh
-  width 100vw
+  width 100%
   display flex
   flex-flow row nowrap
   justify-content space-between
