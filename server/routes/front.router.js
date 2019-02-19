@@ -17,8 +17,8 @@ const frontRouter = Router();
 
 class FrontRouterClass {
   routes() {
-    frontRouter.get("/connect", nuxt.render);
-    frontRouter.get("/", frontController.redirect, nuxt.render);
+    frontRouter.get("/connect", frontController.isLoggedIn, nuxt.render);
+    frontRouter.get("/", frontController.isLoggedOut, nuxt.render);
   }
 
   init() {

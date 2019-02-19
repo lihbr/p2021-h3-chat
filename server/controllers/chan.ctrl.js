@@ -92,7 +92,10 @@ exports.join = async (req, res) => {
       return response.error(check, true);
     }
 
-    const validPassword = bcrypt.compareSync(req.body.password, channel.hash);
+    const validPassword = bcrypt.compareSync(
+      req.body.password,
+      channel.data.hash
+    );
 
     if (!validPassword) {
       return response.error({ res, status: 401, msg: "incorrect password" });
@@ -107,15 +110,12 @@ exports.join = async (req, res) => {
     return response.error(currentUser);
   }
 
-  console.log(currentUser.name, channel.data.slug);
-
   chan
-    .join(currentUser.name, channel.data.slug)
+    .join(currentUser.user.name, channel.data.slug)
     .then(data => {
       return response.success({ res, msg: "joined channel", data });
     })
     .catch(error => {
-      console.log(error);
       return response.error({ res, msg: "internal server error", error });
     });
 };

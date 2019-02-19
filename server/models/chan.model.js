@@ -170,7 +170,6 @@ exports.join = (user, channel) => {
     couch
       .get(options)
       .then(data => {
-        console.log(data);
         if (!data.members.names.includes(user)) {
           data.members.names.push(user);
           options.body = data;

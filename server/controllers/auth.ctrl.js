@@ -111,7 +111,6 @@ exports.changePassword = (req, res) => {
       });
     })
     .catch(error => {
-      console.log(error);
       return response.error({ res, msg: "internal server error", error });
     });
 };

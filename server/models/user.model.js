@@ -99,7 +99,7 @@ exports.getWithCookie = async ({ cookies }) => {
     }
   }
 
-  return { ok, status, msg, name: ok ? result.userCtx.name : null };
+  return { ok, status, msg, user: ok ? result.userCtx : null };
 };
 
 /**
