@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      current: "signup"
+      current: "signin"
     };
   },
   computed: {
