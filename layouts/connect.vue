@@ -1,19 +1,8 @@
 <template>
   <div class="globalContainer">
-    <SideBar/>
     <nuxt/>
   </div>
 </template>
-
-<script>
-import SideBar from "~/components/sections/SideBar.vue";
-
-export default {
-  components: {
-    SideBar
-  }
-};
-</script>
 
 <style lang="stylus">
 html
@@ -32,9 +21,6 @@ html
   min-height 100vh
   width 100vw
   display flex
-  flex-flow row nowrap
+  flex-flow column nowrap
   justify-content space-between
-
-.sideBar
-  flex 0 1 column * 2
 </style>

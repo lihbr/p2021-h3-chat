@@ -63,8 +63,6 @@ export default {
           this.$router.push("/");
         })
         .catch(error => {
-          console.log(this.errors);
-          console.log(error.response.data.msg);
           this.errors.name = error.response.data.msg;
         });
     }
@@ -79,6 +77,6 @@ export default {
 h1
   fontsize(46px)
   line-height 53px
-  font-weight bold
+  font-weight 700
   color accent
 </style>

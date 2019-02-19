@@ -1,5 +1,5 @@
 <template>
-  <section class="illustration">
+  <section class="logo">
     <img :alt="global.app.name" src="~/assets/img/logo.svg">
     {{ global.app.name }}
   </section>
@@ -16,18 +16,16 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.illustration
-  fontsize(44px)
-  line-height 60px
+.logo
+  fontsize(26px)
+  line-height 35px
   font-weight 700
   color accent
-  background url("~assets/img/connectBG.png") no-repeat
-  background-position 50% 100%
-  background-size contain
-  margin-right column
+  margin 30px 0
+  text-align center
 
-  img
-    height 80px
-    vertical-align middle
-    margin-right 5px
+img
+  width 40px
+  display block
+  margin 0 auto 5px auto
 </style>

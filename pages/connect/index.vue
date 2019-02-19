@@ -10,6 +10,7 @@ import Illustration from "~/components/sections/Connect/Illustration.vue";
 import Sign from "~/components/sections/Connect/Sign.vue";
 
 export default {
+  layout: "connect",
   components: {
     Illustration,
     Sign
@@ -25,7 +26,8 @@ export default {
   justify-content center
   width 100%
   @media screen and (max-width: mobile)
-    margin verticalMargin globalMargin
+    margin globalMargin * 0.5 globalMargin
+    align-items center
 
 .illustration
   flex 1

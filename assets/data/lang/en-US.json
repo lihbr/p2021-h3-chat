@@ -20,11 +20,12 @@
               "label": "Password"
             }
           },
-          "submit": "Log In"
-        },
-        "separator": "or",
-        "signUp": {
+          "submit": "Log In",
           "subtitle": "Not a member?<br/>Join the community!",
+          "switch": "Sign Up"
+        },
+        "signUp": {
+          "title": "Join the CEVN<br/>community.",
           "fields": {
             "name": {
               "placeholder": "RoXxOr93",
@@ -32,7 +33,7 @@
             },
             "email": {
               "placeholder": "martin@gmail.com",
-              "label": "Email"
+              "label": "E-mail address"
             },
             "password": {
               "placeholder": "**********",
@@ -43,8 +44,10 @@
               "label": "Confirm password"
             }
           },
-          "submit": "Sign Up"
-        }
+          "submit": "Sign Up",
+          "switch": "Sign In"
+        },
+        "separator": "or"
       }
     }
   }

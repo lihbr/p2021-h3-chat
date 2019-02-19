@@ -25,7 +25,6 @@ export default {
   width 100%
   fontsize(18px)
   font-weight 500
-  margin-top 30px
   border-radius 5px
   text-align center
   padding 14px 0
