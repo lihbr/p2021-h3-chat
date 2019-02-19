@@ -40,10 +40,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - channels > everybody read, some can write something
 
-  - createChannels > express > wip
-    { name, slug, owner, hash}
+  - createChannels > express > done
   - listChannels > pouchdb > wip
-  - joinChannel > express > wip
+  - joinChannel > express > done
   - leaveChannel > express > wip
 
 * channels\_:slug > role + everybody read, some can write something > sync/change

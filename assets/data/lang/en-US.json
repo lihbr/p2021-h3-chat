@@ -1,1 +1,51 @@
-{}
+{
+  "global": {
+    "app": {
+      "name": "CEVNchat"
+    }
+  },
+  "sections": {
+    "connect": {
+      "illustration": {},
+      "sign": {
+        "signIn": {
+          "title": "Hello.<br/>Please log in.",
+          "fields": {
+            "name": {
+              "placeholder": "RoXxOr93",
+              "label": "Username"
+            },
+            "password": {
+              "placeholder": "**********",
+              "label": "Password"
+            }
+          },
+          "submit": "Log In"
+        },
+        "separator": "or",
+        "signUp": {
+          "subtitle": "Not a member?<br/>Join the community!",
+          "fields": {
+            "name": {
+              "placeholder": "RoXxOr93",
+              "label": "Username"
+            },
+            "email": {
+              "placeholder": "martin@gmail.com",
+              "label": "Email"
+            },
+            "password": {
+              "placeholder": "**********",
+              "label": "Password"
+            },
+            "confirm": {
+              "placeholder": "**********",
+              "label": "Confirm password"
+            }
+          },
+          "submit": "Sign Up"
+        }
+      }
+    }
+  }
+}

@@ -11,7 +11,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 // Nuxt
-const { Nuxt, Builder } = require("nuxt");
+const { Builder } = require("nuxt");
+const { nuxt } = require("./nuxt");
 
 // Inner
 const mainRouter = require("./routes/main.router");
@@ -23,20 +24,16 @@ const mainRouter = require("./routes/main.router");
 const server = express();
 const port = process.env.PORT || 3000;
 
-// Import and Set Nuxt.js options
-const config = require("../nuxt.config.js");
-config.dev = !(process.env.NODE_ENV === "production");
-
 class ServerClass {
   async init() {
     // Set port
     server.set("port", port);
 
-    // Init Nuxt.js
-    const nuxt = new Nuxt(config);
-
     // Build only in dev mode
-    if (!process.env.EXPRESS_ONLY && config.dev) {
+    if (
+      process.env.EXPRESS_ONLY != 1 &&
+      !(process.env.NODE_ENV === "production")
+    ) {
       const builder = new Builder(nuxt);
       await builder.build();
     }

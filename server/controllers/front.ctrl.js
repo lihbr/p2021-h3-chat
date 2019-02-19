@@ -16,7 +16,7 @@ exports.redirect = async (req, res, next) => {
   const currentUser = await user.getWithCookie(req);
 
   if (!currentUser.ok) {
-    return res.redirect(301, "/connect");
+    return res.redirect(302, "/connect");
   }
 
   return next();

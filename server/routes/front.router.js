@@ -4,6 +4,9 @@
 // Express
 const { Router } = require("express");
 
+// Nuxt
+const { nuxt } = require("../nuxt");
+
 // Inner
 const frontController = require("../controllers/front.ctrl.js");
 
@@ -14,7 +17,8 @@ const frontRouter = Router();
 
 class FrontRouterClass {
   routes() {
-    frontRouter.get("*", frontController.redirect);
+    frontRouter.get("/connect", nuxt.render);
+    frontRouter.get("/", frontController.redirect, nuxt.render);
   }
 
   init() {

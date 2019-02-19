@@ -1,8 +1,6 @@
 <template>
   <div class="globalContainer">
-    <main class="main">
-      <nuxt/>
-    </main>
+    <nuxt/>
   </div>
 </template>
 
@@ -21,8 +19,8 @@ html
 
 .globalContainer
   min-height 100vh
+  width 100vw
   display flex
   flex-flow column nowrap
   justify-content space-between
-  overflow-x hidden
 </style>

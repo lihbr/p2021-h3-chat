@@ -3,7 +3,9 @@
  */
 // Quickly sanitize msg
 const sanitizeMsg = msg => {
-  return msg.replace(/\.$/, "").toLocaleLowerCase();
+  msg = msg.replace(/\.$/, "");
+  msg += ".";
+  return msg.charAt(0).toUpperCase() + msg.slice(1);
 };
 
 exports.response = {
