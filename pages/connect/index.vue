@@ -21,7 +21,7 @@ export default {
 <style scoped lang="stylus">
 .connect
   flex 1
-  margin verticalMargin column
+  margin 5vh column
   display flex
   align-items stretch
   justify-content center

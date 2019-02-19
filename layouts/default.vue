@@ -29,7 +29,7 @@ html
   background white
 
 .globalContainer
-  min-height 100vh
+  height 100vh
   width 100%
   display flex
   flex-flow row nowrap

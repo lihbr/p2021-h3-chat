@@ -6,9 +6,10 @@
   },
   "sections": {
     "connect": {
-      "illustration": {},
+      "logo": {},
       "sign": {
         "signIn": {
+          "action": "signin",
           "title": "Hello.<br/>Please log in.",
           "fields": {
             "name": {
@@ -22,9 +23,11 @@
           },
           "submit": "Log In",
           "subtitle": "Not a member?<br/>Join the community!",
-          "switch": "Sign Up"
+          "switch": "Sign Up",
+          "separator": "or"
         },
         "signUp": {
+          "action": "signup",
           "title": "Join the CEVN<br/>community.",
           "fields": {
             "name": {
@@ -45,9 +48,9 @@
             }
           },
           "submit": "Sign Up",
-          "switch": "Sign In"
-        },
-        "separator": "or"
+          "switch": "Sign In",
+          "separator": "or"
+        }
       }
     }
   }
