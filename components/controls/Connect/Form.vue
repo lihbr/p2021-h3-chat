@@ -94,7 +94,7 @@ export default {
       this.errors = { name: "", email: "", password: "", confirm: "" };
 
       this.$axios
-        .post(`auth/${data.action}`, this.info)
+        .post(`auth/${this.data.action}`, this.info)
         .then(result => {
           this.$router.push("/");
         })
