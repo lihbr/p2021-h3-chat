@@ -1,12 +1,9 @@
 /**
  * Imports
  */
-// Express
-const rp = require("request-promise-native");
-
 // Inner
 // Models
-const auth = require("../models/auth.models");
+const user = require("../models/user.model");
 
 // Helpers
 const { checkFields } = require("../helpers/request.checker");
@@ -35,22 +32,21 @@ exports.signUp = async (req, res, next) => {
   }
 
   // Checking if user already exist
-  const userExists = await auth.userExists(req.body);
+  const userExists = await user.exists(req.body);
 
-  // Error if can't check of if mail
+  // Error if can't check or if user exists
   if (userExists.error || userExists.ok) {
     userExists.res = res;
-    userExists.status = 409;
     return response.error(userExists);
   }
 
-  auth
+  user
     .signUp(req.body)
     .then(() => {
-      next();
+      return next();
     })
     .catch(error => {
-      return response.error({ res, msg: "internal server error", error }, true);
+      return response.error({ res, msg: "internal server error", error });
     });
 };
 
@@ -67,14 +63,14 @@ exports.signIn = (req, res) => {
 
   // Include user error here
 
-  auth
+  user
     .signIn(req.body)
     .then(data => {
       res.set("set-cookie", data.headers["set-cookie"]);
       return response.success({ res, msg: "user logged in", data: data.body });
     })
     .catch(error => {
-      return response.error({ res, msg: "internal server error", error }, true);
+      return response.error({ res, msg: "internal server error", error });
     });
 };
 
@@ -83,7 +79,7 @@ exports.signIn = (req, res) => {
  */
 exports.changePassword = (req, res) => {
   const check = checkFields(
-    ["name", "password", "newPassword", "confirm"],
+    ["name", "password", "new_password", "confirm"],
     req.body
   );
 
@@ -94,7 +90,7 @@ exports.changePassword = (req, res) => {
 
   // Include user error here
 
-  if (req.body.newPassword !== req.body.confirm) {
+  if (req.body.new_password !== req.body.confirm) {
     return response.error({
       res,
       status: 422,
@@ -102,10 +98,10 @@ exports.changePassword = (req, res) => {
     });
   }
 
-  auth
+  user
     .signIn(req.body)
     .then(data => {
-      return auth.changePassword(req.body);
+      return user.changePassword(req.body);
     })
     .then(data => {
       return response.success({

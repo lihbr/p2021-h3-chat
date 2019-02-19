@@ -19,6 +19,15 @@ const auth = `Basic ${btoa(
   `${process.env.COUCH_USER || "admin"}:${process.env.COUCH_PASS || "admin"}`
 )}`;
 
+const quotify = obj => {
+  for (const i in obj) {
+    if (obj.hasOwnProperty(i)) {
+      if (typeof obj[i] === "string") obj[i] = `"${obj[i]}"`;
+    }
+  }
+  return obj;
+};
+
 // Talk to couch
 const talk = ({
   db,
@@ -29,7 +38,8 @@ const talk = ({
   admin = false,
   method = "GET",
   json = true,
-  includeHeader = false
+  includeHeader = false,
+  authCookie = false
 } = {}) => {
   // Default options object
   const options = {
@@ -44,7 +54,7 @@ const talk = ({
   if (doc) options.uri += `/${doc}`;
 
   // Add params to url if needed
-  if (params) options.uri += `?${querystring.stringify(params)}`;
+  if (params) options.uri += `?${querystring.stringify(quotify(params))}`;
 
   // Execute as admin if needed
   if (admin) options.headers.Authorization = auth;
@@ -52,6 +62,14 @@ const talk = ({
   // Include header if requested
   if (includeHeader) {
     options.transform = (body, res) => ({ headers: res.headers, body });
+  }
+
+  // Set AuthSession cookie is provided
+  if (authCookie) {
+    const j = rp.jar();
+    const cookie = rp.cookie(`AuthSession=${authCookie}`);
+    j.setCookie(cookie, serv);
+    options.jar = j;
   }
 
   // If sending something

@@ -17,6 +17,7 @@ const apiRouter = Router();
 
 // Child
 const authRouter = new AuthRouterClass();
+const chanRouter = new ChanRouterClass();
 
 // Genealogy
 mainRouter.use("/api", apiRouter);

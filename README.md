@@ -56,3 +56,4 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Login via mail
 - Express validator
+- Leave channel

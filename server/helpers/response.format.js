@@ -20,8 +20,8 @@ exports.response = {
       if (error.error && error.error.reason) msg = error.error.reason;
       if (error.statusCode) status = error.statusCode;
     }
-    // Clear error details if source not trusted
-    if (!trusted) error = null;
+    // Clear error details if source not trusted or production
+    if (!trusted || process.env.NODE_ENV === "production") error = null;
 
     msg = sanitizeMsg(msg);
     return res.status(status).json({ status, msg, error });

@@ -6,17 +6,16 @@ const md5 = require("md5");
 
 // Inner
 const couch = require("../helpers/couch.serv.js");
-
-const _usersPrefix = "org.couchdb.user";
+const { _usersPrefix } = require("../helpers/misc.var");
 
 /**
  * Config
  */
 
 /**
- * UserExists
+ * Exists
  */
-exports.userExists = async ({ name, email }) => {
+exports.exists = async ({ name, email }) => {
   let ok = false,
     result;
 
@@ -42,29 +41,65 @@ exports.userExists = async ({ name, email }) => {
 
   ok = result.length > 0;
 
-  // User doesn't exists
+  let msg, status;
+  // User does not exists
   if (!ok) {
-    return { ok, msg: "user doesn't exists" };
-  }
-
-  // User exists
-  let exist = { mail: false, name: false };
-
-  for (const doc of result) {
-    if (doc._id === `${_usersPrefix}:${name}`) exist.name = true;
-    if (doc.email === email) exist.email = true;
-  }
-
-  let msg = "";
-  if (exist.name && exist.email) {
-    msg = "name and email already exist";
-  } else if (exist.name) {
-    msg = "name already exists";
+    status = 404;
+    msg = "user does not exists";
   } else {
-    msg = "email already exists";
+    // User exists
+    let exist = { mail: false, name: false };
+
+    for (const doc of result) {
+      if (doc._id === `${_usersPrefix}:${name}`) exist.name = true;
+      if (doc.email === email) exist.email = true;
+    }
+
+    status = 409;
+    if (exist.name && exist.email) {
+      msg = "name and email already exist";
+    } else if (exist.name) {
+      msg = "name already exists";
+    } else {
+      msg = "email already exists";
+    }
   }
 
-  return { ok, msg };
+  return { ok, status, msg };
+};
+
+/**
+ * GetWithCookie
+ */
+exports.getWithCookie = async ({ cookies }) => {
+  let ok = false,
+    result,
+    status = 422,
+    msg = "auth cookie not provided";
+
+  if (cookies.AuthSession) {
+    const options = {
+      db: "_session",
+      authCookie: cookies.AuthSession
+    };
+
+    try {
+      result = await couch.get(options);
+    } catch (error) {
+      return { ok, error };
+    }
+
+    if (result.ok && result.userCtx.name) {
+      ok = true;
+      status = 200;
+      msg = "user found";
+    } else {
+      status = 404;
+      msg = "user not found";
+    }
+  }
+
+  return { ok, status, msg, name: ok ? result.userCtx.name : null };
 };
 
 /**
@@ -88,9 +123,8 @@ exports.signUp = ({ name, email, password }) => {
 
   const publicUser = {
     db: "chat_users_public",
-    doc: `${name}`,
+    doc: name,
     body: {
-      _id: user.name,
       owner: user.name,
       pp: null,
       md5: md5(user.email),
@@ -130,7 +164,7 @@ exports.signIn = ({ name, password }) => {
 /**
  * ChangePassword
  */
-exports.changePassword = async ({ name, newPassword }) => {
+exports.changePassword = async ({ name, new_password }) => {
   let user;
 
   const options = {
@@ -144,7 +178,7 @@ exports.changePassword = async ({ name, newPassword }) => {
     return error;
   }
 
-  user.password = newPassword;
+  user.password = new_password;
   options.body = user;
 
   return couch.put(options);
