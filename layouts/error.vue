@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  layout: "connect",
   props: {
     error: {
       type: Object,

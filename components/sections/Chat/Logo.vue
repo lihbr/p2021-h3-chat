@@ -1,8 +1,8 @@
 <template>
-  <section class="logo">
+  <figure class="logo">
     <img :alt="global.app.name" src="~/assets/img/logo.svg">
     {{ global.app.name }}
-  </section>
+  </figure>
 </template>
 
 <script>
@@ -23,6 +23,7 @@ export default {
   color accent
   margin 30px 0
   text-align center
+  pointer-events none
 
 img
   width 40px

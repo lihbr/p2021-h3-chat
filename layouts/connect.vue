@@ -24,4 +24,9 @@ html
   flex-flow column nowrap
   justify-content space-between
   overflow hidden
+
+  // @media screen and (max-width: mobile)
+  //   overflow inherit
+  //   width inherit
+  //   weight inherit
 </style>

@@ -6,11 +6,21 @@
 </template>
 
 <script>
-import SideBar from "~/components/sections/SideBar.vue";
+import { mapActions } from "vuex";
+
+import SideBar from "~/components/sections/Chat/SideBar.vue";
 
 export default {
   components: {
     SideBar
+  },
+  mounted() {
+    this.chatInit();
+  },
+  methods: {
+    ...mapActions({
+      chatInit: "chat/init"
+    })
   }
 };
 </script>
@@ -34,6 +44,7 @@ html
   display flex
   flex-flow row nowrap
   justify-content space-between
+  overflow hidden
 
 .sideBar
   flex 0 1 column * 2
