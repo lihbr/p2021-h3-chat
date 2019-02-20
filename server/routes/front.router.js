@@ -17,7 +17,11 @@ const frontRouter = Router();
 
 class FrontRouterClass {
   routes() {
-    frontRouter.get("/connect", frontController.isLoggedIn, nuxt.render);
+    frontRouter.get(
+      "/connect/:slug*?",
+      frontController.isLoggedIn,
+      nuxt.render
+    );
     frontRouter.get(
       "/channel/:slug*?",
       frontController.isLoggedOut,

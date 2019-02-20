@@ -103,7 +103,7 @@ export default {
         .post(`auth/${this.data.action}`, this.info)
         .then(result => {
           this.$router.push(
-            `${this.callback ? `/channel/${this.callback}` : ""}`
+            `/${this.callback ? `channel/${this.callback}` : ""}`
           );
         })
         .catch(error => {

@@ -5,28 +5,24 @@ const db = {
   pouch: {}
 };
 
-export const state = () => ({
-  currentUser: {}
-});
+export const state = () => ({});
 
 export const mutations = {};
 
 export const actions = {
-  init(state) {
+  init({ commit }) {
     db.couch.users = new PouchDB(`${process.env.couch_serv}/chat_users_public`);
     db.couch.channels = new PouchDB(`${process.env.couch_serv}/chat_channels`);
 
-    console.clear();
-    console.log(this.$cookies.getAll());
     this.$axios
       .get(`${process.env.couch_serv}/_session`, { withCredentials: true })
       .then(data => {
-        console.log(`${process.env.couch_serv}/_session`);
+        commit("user/setName", data.data.userCtx.name);
+        commit("user/setChannels", data.data.userCtx.roles);
         console.log(data.data.userCtx);
       })
       .catch(error => {
         console.error(error);
       });
-    console.log("couch inited");
   }
 };

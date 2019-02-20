@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
-    "axios-cookiejar-support": "^0.4.2",
     "bcrypt": "^3.0.4",
     "btoa": "^1.2.1",
     "cookie-parser": "^1.4.4",

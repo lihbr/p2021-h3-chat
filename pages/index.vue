@@ -1,5 +1,5 @@
 <template>
-  <div class="home">Home</div>
+  <div class="home">{{ $store.state.chat.user.name }}</div>
 </template>
 
 <script>
@@ -8,6 +8,9 @@
 export default {
   components: {
     // Logo
+  },
+  mounted() {
+    console.log(this.$store.state.chat.user.name);
   }
 };
 </script>
