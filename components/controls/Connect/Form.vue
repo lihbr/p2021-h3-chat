@@ -1,49 +1,51 @@
 <template>
-  <form class="form" @submit.prevent="sign">
-    <h1 v-html="data.title"/>
-    <InputField
-      v-if="data.fields.name"
-      id="nameInput"
-      v-model.lazy.trim="info.name"
-      :error="errors.name"
-      :placeholder="data.fields.name.placeholder"
-      :label="data.fields.name.label"
-      type="text"
-    />
-    <InputField
-      v-if="data.fields.email"
-      id="emailInput"
-      v-model.lazy.trim="info.email"
-      :error="errors.email"
-      :placeholder="data.fields.email.placeholder"
-      :label="data.fields.email.label"
-      type="email"
-    />
-    <InputField
-      v-if="data.fields.password"
-      id="passwordInput"
-      v-model.lazy.trim="info.password"
-      :error="errors.password"
-      :placeholder="data.fields.password.placeholder"
-      :label="data.fields.password.label"
-      type="password"
-    />
-    <InputField
-      v-if="data.fields.confirm"
-      id="confirmInput"
-      v-model.lazy.trim="info.confirm"
-      :error="errors.confirm"
-      :placeholder="data.fields.confirm.placeholder"
-      :label="data.fields.confirm.label"
-      type="password"
-    />
-    <Action :title="data.submit" :is-active="infoOk" filled type="submit">{{ data.submit }}</Action>
+  <div class="form">
+    <form @submit.prevent="sign">
+      <h1 v-html="data.title"/>
+      <InputField
+        v-if="data.fields.name"
+        id="nameInput"
+        v-model.lazy.trim="info.name"
+        :error="errors.name"
+        :placeholder="data.fields.name.placeholder"
+        :label="data.fields.name.label"
+        type="text"
+      />
+      <InputField
+        v-if="data.fields.email"
+        id="emailInput"
+        v-model.lazy.trim="info.email"
+        :error="errors.email"
+        :placeholder="data.fields.email.placeholder"
+        :label="data.fields.email.label"
+        type="email"
+      />
+      <InputField
+        v-if="data.fields.password"
+        id="passwordInput"
+        v-model.lazy.trim="info.password"
+        :error="errors.password"
+        :placeholder="data.fields.password.placeholder"
+        :label="data.fields.password.label"
+        type="password"
+      />
+      <InputField
+        v-if="data.fields.confirm"
+        id="confirmInput"
+        v-model.lazy.trim="info.confirm"
+        :error="errors.confirm"
+        :placeholder="data.fields.confirm.placeholder"
+        :label="data.fields.confirm.label"
+        type="password"
+      />
+      <Action :title="data.submit" :is-active="infoOk" filled type="submit">{{ data.submit }}</Action>
+    </form>
     <div class="separator">
       <span>{{ data.separator }}</span>
     </div>
     <h2 v-html="data.subtitle"/>
     <Action :title="data.switch" is-active @click.native="$emit('switch-case')">{{ data.switch }}</Action>
-  </form>
+  </div>
 </template>
 
 <script>
