@@ -101,6 +101,12 @@ export default {
 
       this.$axios
         .post(`auth/${this.data.action}`, this.info)
+        // .then(() => {
+        //   return this.$axios.post(`${process.env.couch_serv}/_session`, {
+        //     name: this.info.name,
+        //     password: this.info.password
+        //   });
+        // })
         .then(result => {
           this.$router.push(
             `/${this.callback ? `channel/${this.callback}` : ""}`

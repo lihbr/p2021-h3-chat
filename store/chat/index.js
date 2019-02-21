@@ -14,6 +14,8 @@ export const actions = {
     db.couch.users = new PouchDB(`${process.env.couch_serv}/chat_users_public`);
     db.couch.channels = new PouchDB(`${process.env.couch_serv}/chat_channels`);
 
+    this.$axios.defaults.withCredentials = true;
+
     this.$axios
       .get(`${process.env.couch_serv}/_session`, { withCredentials: true })
       .then(data => {

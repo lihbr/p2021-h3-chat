@@ -66,7 +66,10 @@ exports.signIn = (req, res) => {
   user
     .signIn(req.body)
     .then(data => {
-      res.set("set-cookie", data.headers["set-cookie"]);
+      res.set(
+        "set-cookie",
+        data.headers["set-cookie"].map(c => c.replace(/httponly/i, ""))
+      );
       return response.success({ res, msg: "user logged in", data: data.body });
     })
     .catch(error => {
