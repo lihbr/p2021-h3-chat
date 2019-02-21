@@ -26,7 +26,7 @@ import { debounce } from "~/assets/js/utils";
 
 import Public from "~/assets/icons/public";
 import Private from "~/assets/icons/private";
-import Magnifier from "~/assets/icons/Magnifier";
+import Magnifier from "~/assets/icons/magnifier";
 
 export default {
   components: {
