@@ -15,7 +15,9 @@ export const mutations = {
     state.channels = docs;
   },
   addChannel(state, channel) {
-    channel.href = `/channel/${channel.slug}`;
-    state.channels = [...state.channels, channel];
+    if (!state.channel.find(i => i.slug === channel.slug)) {
+      channel.href = `/channel/${channel.slug}`;
+      state.channels = [...state.channels, channel];
+    }
   }
 };
