@@ -113,9 +113,9 @@ exports.join = async (req, res) => {
   chan
     .join(currentUser.user.name, channel.data.slug)
     .then(data => {
-      return response.success({ res, msg: "joined channel", data });
+      return response.success({ res, msg: "joined channel", data: data[0] });
     })
     .catch(error => {
-      return response.error({ res, msg: "internal server error", error });
+      return response.error({ res, msg: "internal server error", error }, true);
     });
 };

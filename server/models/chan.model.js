@@ -7,7 +7,7 @@ const slugify = require("slugify");
 
 // Inner
 const couch = require("../helpers/couch.serv");
-const { slugOpt } = require("../helpers/misc.var");
+const { slugOpt, _usersPrefix } = require("../helpers/misc.var");
 const { _design_chan_locker } = require("../design/_design_chan_locker");
 
 /**
@@ -144,7 +144,8 @@ exports.create = async ({ name, password }, isPublic, owner) => {
       .then(() => {
         return Promise.all([
           couch.put(channelCreateDD),
-          couch.put(channelSetSecurity)
+          couch.put(channelSetSecurity),
+          couch.put(userSetSecurity)
         ]);
       })
       .then(data => {
@@ -159,29 +160,57 @@ exports.create = async ({ name, password }, isPublic, owner) => {
 /**
  * Join
  */
-exports.join = (user, channel) => {
-  const options = {
-    db: `chat_channel_${channel}`,
+exports.join = (user, channelSlug) => {
+  const channelOpt = {
+    db: `chat_channel_${channelSlug}`,
     doc: "_security",
     admin: true
   };
 
-  return new Promise((resolve, reject) => {
-    couch
-      .get(options)
-      .then(data => {
-        if (!data.members.names.includes(user)) {
-          data.members.names.push(user);
-          options.body = data;
-          return couch.put(options);
-        }
-        resolve({ ok: true });
-      })
-      .then(data => {
-        resolve(data);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
+  const userOpt = {
+    db: "_users",
+    doc: `${_usersPrefix}:${user}`,
+    admin: true
+  };
+
+  const channelRole = `chat_channel_member_${channelSlug}`;
+
+  return Promise.all([
+    new Promise((resolve, reject) => {
+      couch
+        .get(channelOpt)
+        .then(data => {
+          if (!data.members.names.includes(user)) {
+            data.members.names.push(user);
+            channelOpt.body = data;
+            return couch.put(channelOpt);
+          }
+          resolve({ ok: true });
+        })
+        .then(data => {
+          resolve(data);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    }),
+    new Promise((resolve, reject) => {
+      couch
+        .get(userOpt)
+        .then(data => {
+          if (!data.roles.includes(channelRole)) {
+            data.roles.push(channelRole);
+            userOpt.body = data;
+            return couch.put(userOpt);
+          }
+          resolve({ ok: true });
+        })
+        .then(data => {
+          resolve(data);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    })
+  ]);
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">{{ $store.state.chat.user.name }}</div>
+  <div class="home" @click="test">{{ $store.state.chat.user.name }}</div>
 </template>
 
 <script>
@@ -9,8 +9,11 @@ export default {
   components: {
     // Logo
   },
-  mounted() {
-    console.log(this.$store.state.chat.user.name);
+  mounted() {},
+  methods: {
+    test() {
+      console.log(this.$store.state.chat.user.channels);
+    }
   }
 };
 </script>

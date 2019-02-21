@@ -52,6 +52,23 @@
           "separator": "or"
         }
       }
+    },
+    "chat": {
+      "sidebar": {},
+      "logo": {},
+      "search": {
+        "placeholder": "Search..."
+      },
+      "list": {
+        "channels": {
+          "label": "rooms",
+          "add": "Create a room"
+        },
+        "pms": {
+          "label": "people",
+          "add": "Talk to someone"
+        }
+      }
     }
   }
 }
