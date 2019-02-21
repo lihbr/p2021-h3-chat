@@ -12,36 +12,58 @@
         </nuxt-link>
       </li>
     </ul>
-    <a class="add">
+    <a class="add" @click="addPopup = true">
       <Add/>
-      {{ data.add }}
+      {{ data.add.cta }}
     </a>
+    <transition name="fade" mode="out-in">
+      <CreateChannel
+        v-if="addPopup && listFor === 'channels'"
+        key="createChannel"
+        :data="data.add"
+        @close="addPopup = false"
+      />
+      <CreatePms
+        v-else-if="addPopup && listFor === 'pms'"
+        key="createPms"
+        :data="data.add"
+        @close="addPopup = false"
+      />
+    </transition>
   </section>
 </template>
 
 <script>
-import Public from "~/assets/icons/public";
-import Private from "~/assets/icons/private";
-import Add from "~/assets/icons/add";
+import CreateChannel from "~/components/controls/Chat/SideBar/CreateChannel.vue";
+
+import Public from "~/assets/icons/public.vue";
+import Private from "~/assets/icons/private.vue";
+import Add from "~/assets/icons/add.vue";
 
 export default {
   components: {
+    CreateChannel,
     Public,
     Private,
     Add
   },
   props: {
-    for: {
+    listFor: {
       type: String,
       default: () => ""
     }
   },
+  data() {
+    return {
+      addPopup: false
+    };
+  },
   computed: {
     data() {
-      return this.$store.state.lang.text.sections.chat.list[this.for];
+      return this.$store.state.lang.text.sections.chat.list[this.listFor];
     },
     items() {
-      return this.$store.state.chat.user[this.for];
+      return this.$store.state.chat.user[this.listFor];
     }
   }
 };

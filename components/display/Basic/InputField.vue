@@ -1,15 +1,28 @@
 <template>
-  <div class="inputField">
-    <label v-if="label" :for="id">{{ label }}</label>
-    <input
-      :id="id"
-      :type="type"
-      :placeholder="placeholder"
-      :value="value"
-      :name="id"
-      @input="$emit('input', $event.target.value)"
-    >
-    <div class="error" v-html="error"/>
+  <div :class="{small, checkbox: type === 'checkbox'}" class="inputField">
+    <template v-if="type !== 'checkbox'">
+      <label v-if="label" :for="id">{{ label }}</label>
+      <input
+        :id="id"
+        :type="type"
+        :placeholder="placeholder"
+        :value="value"
+        :name="id"
+        @input="$emit('input', $event.target.value)"
+      >
+      <div class="error" v-html="error"/>
+    </template>
+    <template v-else>
+      <input
+        :id="id"
+        :type="type"
+        :value="value"
+        :name="id"
+        @input="$emit('input', $event.target.checked)"
+      >
+      <label v-if="label" :for="id">{{ label }}</label>
+      <p>{{ description }}</p>
+    </template>
   </div>
 </template>
 
@@ -29,7 +42,7 @@ export default {
       default: () => ""
     },
     value: {
-      type: String,
+      type: [String, Boolean],
       default: () => ""
     },
     label: {
@@ -39,6 +52,14 @@ export default {
     error: {
       type: String,
       default: () => ""
+    },
+    description: {
+      type: String,
+      default: () => ""
+    },
+    small: {
+      type: Boolean,
+      default: () => false
     }
   }
 };
@@ -49,7 +70,7 @@ export default {
   margin-top 30px
   position relative
 
-label, input
+label, input, p
   fontsize(18px)
   line-height 25px
   display block
@@ -65,9 +86,9 @@ input
   padding 12px 20px 11px 20px
   transition color .2s ease, border-color .2s ease
   color grey
-  &:focus
-    border-color grey
-    color black
+  &:focus, &:not(:placeholder-shown)
+    border-color accent
+    color accent
 
 input[type=password]
   fontsize(10px)
@@ -80,4 +101,39 @@ input[type=password]
   position absolute
   top 105%
   left 0
+
+.checkbox
+  input
+    display none
+
+  label
+    color black
+    position relative
+    padding-left 24px
+    cursor pointer
+
+    &::before
+      content ""
+      position absolute
+      left 2px
+      top calc(50% - 10px)
+      height 16px
+      width 16px
+      display block
+      border-radius 4px
+      border 1px solid lightGrey
+      transition background .3s ease
+
+  input:checked + label::before
+      background accent
+
+.small
+  margin-top 20px
+
+  label, input, p
+    fontsize(14px)
+    line-height 19px
+
+  input
+    padding 10px 20px 9px 20px
 </style>

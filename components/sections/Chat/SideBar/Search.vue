@@ -24,9 +24,12 @@
 import { mapMutations, mapActions } from "vuex";
 import { debounce } from "~/assets/js/utils";
 
-import Public from "~/assets/icons/public";
-import Private from "~/assets/icons/private";
-import Magnifier from "~/assets/icons/magnifier";
+import PouchDB from "pouchdb";
+import { slug } from "~/assets/js/utils";
+
+import Public from "~/assets/icons/public.vue";
+import Private from "~/assets/icons/private.vue";
+import Magnifier from "~/assets/icons/magnifier.vue";
 
 export default {
   components: {
@@ -36,7 +39,8 @@ export default {
   },
   data() {
     return {
-      searchInput: ""
+      searchInput: "",
+      channels: null
     };
   },
   computed: {
@@ -47,18 +51,32 @@ export default {
       return this.$store.state.chat.search.results;
     }
   },
+  mounted() {
+    this.channels = new PouchDB("channels");
+  },
   methods: {
     ...mapMutations({
       setResults: "chat/search/setResults"
     }),
-    ...mapActions({
-      chatSearch: "chat/search/search"
-    }),
     search() {
-      if (this.searchInput.length < 3) {
-        this.setResults([]);
-      } else {
-        this.chatSearch(this.searchInput);
+      if (this.searchInput.length) {
+        const slug = slug(this.searchInput);
+        const options = {
+          include_docs: true,
+          startkey: slug,
+          endkey: `${slug}\uffff`,
+          limit: 10
+        };
+        console.log(options);
+        this.channels
+          .allDocs(options)
+          .then(data => {
+            console.log(data);
+            this.setResults(data.rows);
+          })
+          .catch(error => {
+            console.error(error);
+          });
       }
     }
   }
@@ -101,7 +119,7 @@ ul
     background softerGrey
     display block
 
-.deployed input:focus + ul
+.deployed input:focus + ul, .deployed ul:hover
     display block
 
 a
@@ -111,7 +129,7 @@ a
   display block
   color grey
 
-  &:not(.nuxt-link-active):hover
+  &:hover
     background rgba(accent, .1)
 
   svg

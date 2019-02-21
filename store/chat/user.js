@@ -13,5 +13,9 @@ export const mutations = {
       return c.doc;
     });
     state.channels = docs;
+  },
+  addChannel(state, channel) {
+    channel.href = `/channel/${channel.slug}`;
+    state.channels = [...state.channels, channel];
   }
 };

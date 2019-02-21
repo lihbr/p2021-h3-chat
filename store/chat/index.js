@@ -5,7 +5,7 @@ export const state = () => ({});
 export const mutations = {};
 
 export const actions = {
-  init({ commit }) {
+  init({ commit, state }) {
     // Remote
     const c_users = new PouchDB(
       `${process.env.api_url}/couchproxy/chat_users_public`
@@ -17,7 +17,20 @@ export const actions = {
 
     // Local
     const p_channels = new PouchDB("channels");
-    PouchDB.replicate(c_channels, p_channels);
+    const channelsSync = PouchDB.replicate(c_channels, p_channels, {
+      live: true,
+      retry: true
+    });
+
+    channelsSync.on("change", info => {
+      if (info.ok) {
+        for (const doc of info.docs) {
+          if (doc.owner === state.user.name) {
+            commit("user/addChannel", doc);
+          }
+        }
+      }
+    });
 
     this.$axios
       .get("/couchproxy/_session")
@@ -29,7 +42,7 @@ export const actions = {
           .filter(c => c.includes(key))
           .map(c => c.replace(key, ""));
 
-        return p_channels.allDocs({
+        return c_channels.allDocs({
           include_docs: true,
           keys: channels
         });

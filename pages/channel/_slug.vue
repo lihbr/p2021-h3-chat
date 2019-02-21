@@ -11,6 +11,9 @@ export default {
   },
   validate({ params }) {
     return true || (params.slug && /[a-z][a-z0-9_$()+/-]*/g.test(params.slug));
+  },
+  mounted() {
+    //
   }
 };
 </script>

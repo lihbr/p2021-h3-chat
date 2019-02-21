@@ -1,5 +1,5 @@
 <template>
-  <button :class="{isActive, filled}" class="action">
+  <button :class="{isActive, filled, small}" class="action">
     <slot/>
   </button>
 </template>
@@ -14,6 +14,10 @@ export default {
     isActive: {
       type: Boolean,
       default: () => true
+    },
+    small: {
+      type: Boolean,
+      default: () => false
     }
   }
 };
@@ -35,6 +39,7 @@ export default {
   will-change opacity
   cursor pointer
   pointer-events none
+  text-transform uppercase
 
 .isActive
   opacity .99
@@ -43,5 +48,10 @@ export default {
 .filled
   color white
   background accent
+
+.small
+  fontsize(14px)
+  line-height 19px
+  padding 9px 0 8px 0
 
 </style>

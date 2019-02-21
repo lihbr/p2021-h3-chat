@@ -2,15 +2,15 @@
   <aside class="sideBar">
     <Logo/>
     <Search/>
-    <List for="channels"/>
-    <List for="pms"/>
+    <List list-for="channels"/>
+    <List list-for="pms"/>
   </aside>
 </template>
 
 <script>
-import Logo from "~/components/sections/Chat/Logo.vue";
-import Search from "~/components/sections/Chat/Search.vue";
-import List from "~/components/sections/Chat/List.vue";
+import Logo from "~/components/sections/Chat/SideBar/Logo.vue";
+import Search from "~/components/sections/Chat/SideBar/Search.vue";
+import List from "~/components/sections/Chat/SideBar/List.vue";
 
 export default {
   components: {

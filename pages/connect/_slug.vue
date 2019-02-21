@@ -114,12 +114,4 @@ export default {
   @media screen and (max-width: mobile)
     flex 0 1 100%
     padding 0 globalMargin
-
-.fade-enter-active, .fade-leave-active
-  transition opacity .3s ease
-  opacity 1
-  will-change opacity
-
-.fade-enter, .fade-leave-to
-  opacity 0
 </style>

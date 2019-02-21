@@ -53,7 +53,7 @@ exports.create = async (req, res, next) => {
   }
 
   chan
-    .create(req.body, !req.body.password, currentUser.name)
+    .create(req.body, !req.body.password, currentUser.user.name)
     .then(() => {
       return next();
     })

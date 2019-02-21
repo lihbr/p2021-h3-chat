@@ -132,9 +132,6 @@ exports.create = async ({ name, password }, isPublic, owner) => {
     admin: true
   };
 
-  // Give access to owner
-  const giveOwnerAccess = {};
-
   return new Promise((resolve, reject) => {
     couch
       .put(channelCreate)
@@ -144,8 +141,7 @@ exports.create = async ({ name, password }, isPublic, owner) => {
       .then(() => {
         return Promise.all([
           couch.put(channelCreateDD),
-          couch.put(channelSetSecurity),
-          couch.put(userSetSecurity)
+          couch.put(channelSetSecurity)
         ]);
       })
       .then(data => {

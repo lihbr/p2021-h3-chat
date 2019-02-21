@@ -1,3 +1,5 @@
+import slugify from "slugify";
+
 /**
  * Get a random number function
  * @param {float} min - min number to return
@@ -89,4 +91,15 @@ const timingFunctions = {
   }
 };
 
-export { timingFunctions, debounce, rand };
+/**
+ * Slugify plugin global opt.
+ */
+const slugOpt = {
+  replacement: "_",
+  remove: /[^a-z0-9_$()+\/-\s]/g,
+  lower: true
+};
+
+const slug = str => slugify(str, slugOpt);
+
+export { slug, timingFunctions, debounce, rand };

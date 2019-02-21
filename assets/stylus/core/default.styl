@@ -51,3 +51,11 @@ input
 .scrollbar-track-x
   display none !important
 
+// transitions
+.fade-enter-active, .fade-leave-active
+  transition opacity .3s ease
+  opacity 1
+  will-change opacity
+
+.fade-enter, .fade-leave-to
+  opacity 0

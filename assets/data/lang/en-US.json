@@ -62,11 +62,36 @@
       "list": {
         "channels": {
           "label": "rooms",
-          "add": "Create a room"
+          "add": {
+            "cta": "Create a room",
+            "title": "Create a room",
+            "fields": {
+              "name": {
+                "placeholder": "A cool channel name",
+                "label": "Room name"
+              },
+              "private": {
+                "label": "Private ?",
+                "description": "Anyone can join if public, but you can make it private by setting a password."
+              },
+              "password": {
+                "placeholder": "**********",
+                "label": "Channel password"
+              },
+              "confirm": {
+                "placeholder": "**********",
+                "label": "Confirm channel password"
+              }
+            },
+            "submit": "Create room"
+          }
         },
         "pms": {
           "label": "people",
-          "add": "Talk to someone"
+          "add": {
+            "cta": "Talk to someone",
+            "title": "Talk to someone"
+          }
         }
       }
     }
