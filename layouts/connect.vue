@@ -1,5 +1,5 @@
 <template>
-  <div class="globalContainer">
+  <div class="globalContainerConnect">
     <nuxt/>
   </div>
 </template>
@@ -17,7 +17,7 @@ html
   color black
   background white
 
-.globalContainer
+.globalContainerConnect
   height 100vh
   width 100%
   display flex
