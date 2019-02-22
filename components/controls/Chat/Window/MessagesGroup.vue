@@ -30,12 +30,6 @@ export default {
         this.data.author
       }?d=retro&s=100`;
     }
-  },
-  watch: {
-    handler: () => {
-      console.log("ouiiii");
-    },
-    deep: true
   }
 };
 </script>
@@ -50,6 +44,7 @@ export default {
   width 30px
   height 30px
   border-radius 50%
+  margin-bottom globalMargin * 0.5
 
 .wrapper
   max-width 600px

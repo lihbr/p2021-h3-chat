@@ -1,6 +1,6 @@
 export const state = () => ({
   messages: [],
-  lastUpdate: Date.now(),
+  lastMessage: {},
   channel: null
 });
 
@@ -23,7 +23,7 @@ export const mutations = {
         };
       } else {
         const messages = {};
-        messages[_id] = { date, msg, edited };
+        messages[`chat_msg_${_id}`] = { date, msg, edited };
 
         newArr.push({
           author,
@@ -31,7 +31,6 @@ export const mutations = {
         });
       }
 
-      state.lastUpdate = Date.now();
       state.messages = newArr;
     }
   }

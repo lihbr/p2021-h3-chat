@@ -23,7 +23,7 @@ export default {
     List
   },
   mounted() {
-    Scrollbar.init(this.$refs.listsContainer);
+    // Scrollbar.init(this.$refs.listsContainer);
   },
   destroyed() {
     Scrollbar.destroy(this.$refs.listsContainer);
@@ -34,9 +34,8 @@ export default {
 <style scoped lang="stylus">
 .sideBar
   background lighterGrey
-  display flex
-  flex-flow column nowrap
 
 .lists
-  overflow hidden
+  overflow auto
+  height 100%
 </style>

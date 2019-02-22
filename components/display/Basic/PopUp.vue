@@ -37,6 +37,7 @@ export default {
   align-items center
   justify-content center
   background rgba(black, 0.15)
+  z-index 1
 
 section
   max-width 360px

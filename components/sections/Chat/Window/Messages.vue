@@ -2,7 +2,7 @@
   <main ref="messagesContainer" class="messages">
     <div class="wrapper">
       <MessagesGroup
-        v-for="(message, index) in messages"
+        v-for="(message, index) in messagesFixed"
         :key="index"
         :data="message"
         :self="message.author === userName"
@@ -22,7 +22,8 @@ export default {
   },
   data() {
     return {
-      container: null
+      container: null,
+      messagesFixed: []
     };
   },
   computed: {
@@ -37,24 +38,23 @@ export default {
     }
   },
   watch: {
-    lastUpdate(val) {
+    messages(val) {
+      this.messagesFixed = JSON.parse(JSON.stringify(this.messages));
+
       if (this.container) {
         this.container.update();
         const limit = this.container.limit.y;
         if (limit - this.container.offset.y < 400) {
-          this.container.setPosition(0, limit);
+          setTimeout(() => {
+            this.container.setPosition(0, limit * 2);
+          }, 100);
         }
       }
-    },
-    messages: {
-      handler: (after, before) => {
-        console.log(after);
-        console.log(before);
-      },
-      deep: true
     }
   },
   mounted() {
+    this.messagesFixed = JSON.parse(JSON.stringify(this.messages));
+
     this.container = Scrollbar.init(this.$refs.messagesContainer);
     setTimeout(() => {
       const limit = this.container.limit.y;
