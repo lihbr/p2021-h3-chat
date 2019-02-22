@@ -1,5 +1,5 @@
 <template>
-  <div class="home" @click="test">{{ $store.state.chat.user.name }}</div>
+  <div class="home" @click="test"/>
 </template>
 
 <script>

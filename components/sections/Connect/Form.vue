@@ -85,7 +85,8 @@ export default {
           const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           if (!this.info.email.match(emailRegex)) ok = false;
         }
-      } else if (this.data.fields.password && this.info.password.length === 0)
+      }
+      if (this.data.fields.password && this.info.password.length === 0)
         ok = false;
       else if (this.data.fields.confirm && this.info.confirm.length === 0)
         ok = false;

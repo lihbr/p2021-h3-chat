@@ -23,12 +23,6 @@
         :data="data.add"
         @close="addPopup = false"
       />
-      <CreatePms
-        v-else-if="addPopup && listFor === 'pms'"
-        key="createPms"
-        :data="data.add"
-        @close="addPopup = false"
-      />
     </transition>
   </section>
 </template>

@@ -35,22 +35,21 @@ exports._design_chan_locker = function(newDoc, oldDoc, userCtx) {
     }
   }
 
-  // If edited
-  if (oldDoc) {
-    if (newDoc.edited !== true) {
-      throw { forbidden: "doc.edited must be set to true on edition." };
-    }
-    if (oldDoc.date !== newDoc.date) {
-      throw { forbidden: "doc.date cannot be modified" };
-    }
-  }
-
   // If not admin
   if (userCtx.roles.indexOf("_admin") === -1) {
+    // If edited
+    if (oldDoc) {
+      if (newDoc.edited !== true) {
+        throw { forbidden: "doc.edited must be set to true on edition." };
+      }
+      if (oldDoc.date !== newDoc.date) {
+        throw { forbidden: "doc.date cannot be modified" };
+      }
+    }
     // If not owner
     if (
       (oldDoc && oldDoc.author !== userCtx.name) ||
-      oldDoc.author !== userCtx.name
+      newDoc.author !== userCtx.name
     ) {
       throw {
         forbidden:

@@ -47,5 +47,8 @@ html
   overflow hidden
 
 .sideBar
-  flex 0 0 column * 2
+  flex 0 0 globalColumn * 2
+
+.channel
+  flex 1
 </style>

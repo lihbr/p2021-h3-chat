@@ -135,5 +135,12 @@ module.exports = {
     pkg_desc: process.env.DESC || pkg.description,
     couch_serv: process.env.COUCH_SERV || "127.0.0.1:5984",
     api_url: process.env.API_URL || "127.0.0.1:3000"
+  },
+
+  /*
+  ** Router
+  */
+  router: {
+    middleware: "isConnected"
   }
 };

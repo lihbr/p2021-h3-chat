@@ -60,18 +60,16 @@ export default {
     }),
     search() {
       if (this.searchInput.length) {
-        const slug = slug(this.searchInput);
+        const slugName = slug(this.searchInput);
         const options = {
           include_docs: true,
-          startkey: slug,
-          endkey: `${slug}\uffff`,
+          startkey: slugName,
+          endkey: `${slugName}\uffff`,
           limit: 10
         };
-        console.log(options);
         this.channels
           .allDocs(options)
           .then(data => {
-            console.log(data);
             this.setResults(data.rows);
           })
           .catch(error => {

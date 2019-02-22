@@ -21,3 +21,35 @@ export const mutations = {
     }
   }
 };
+
+export const actions = {
+  async get({ commit }, route = "") {
+    try {
+      const user = await this.$axios.get("/couchproxy/_session");
+
+      if (user.data.userCtx.name) {
+        commit("setName", user.data.userCtx.name);
+
+        const key = "chat_channel_member_";
+        const channels = user.data.userCtx.roles
+          .filter(c => c.includes(key))
+          .map(c => c.replace(key, ""));
+
+        const options = {
+          keys: channels
+        };
+
+        const { data } = await this.$axios.post(
+          "/couchproxy/chat_channels/_all_docs?include_docs=true",
+          options
+        );
+
+        commit("setChannels", data.rows);
+      } else {
+        return this.$router.push(`/connect${route ? `/${route}` : ""}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};

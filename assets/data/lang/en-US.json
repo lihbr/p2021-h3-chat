@@ -93,6 +93,25 @@
             "title": "Talk to someone"
           }
         }
+      },
+      "channel": {
+        "join": {
+          "info": "You're about to join the following channel, are you sure?",
+          "infoPrivate": "This channel is locked by a password, enter it first before you join.",
+          "fields": {
+            "password": {
+              "placeholder": "**********",
+              "label": "Channel password"
+            }
+          },
+          "accept": "Join channel"
+        },
+        "info": {
+          "owner": "Owner:"
+        },
+        "submit": {
+          "placeholder": "Send a message to"
+        }
       }
     }
   }

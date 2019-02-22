@@ -4,7 +4,7 @@
 // Slugify options
 exports.slugOpt = {
   replacement: "_",
-  remove: /[^a-z0-9_$()+\/-\s]/g,
+  remove: /[^a-zA-Z0-9_$()+\/-\s]/g,
   lower: true
 };
 

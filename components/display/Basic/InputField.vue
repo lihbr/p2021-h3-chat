@@ -136,4 +136,7 @@ input[type=password]
 
   input
     padding 10px 20px 9px 20px
+
+  .error
+    fontsize(12px)
 </style>

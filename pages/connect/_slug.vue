@@ -69,7 +69,7 @@ export default {
 <style scoped lang="stylus">
 .connect
   flex 1
-  margin 5vh column
+  margin 5vh globalColumn
   display flex
   align-items stretch
   justify-content center
@@ -82,7 +82,7 @@ export default {
   font-weight 700
   color accent
   flex 1
-  margin-right column
+  margin-right globalColumn
   position relative
   pointer-events none
   @media screen and (max-width: desktop)
@@ -108,7 +108,7 @@ export default {
     opacity 1
 
 .sign
-  flex 0 1 column * 3
+  flex 0 1 globalColumn * 3
   height auto
   overflow visible !important
   @media screen and (max-width: mobile)

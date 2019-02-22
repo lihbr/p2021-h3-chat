@@ -1,11 +1,17 @@
 import PouchDB from "pouchdb";
 
-export const state = () => ({});
+export const state = () => ({
+  inited: false
+});
 
-export const mutations = {};
+export const mutations = {
+  inited(state) {
+    state.inited = true;
+  }
+};
 
 export const actions = {
-  init({ commit, state }) {
+  init({ state, commit }) {
     // Remote
     const c_users = new PouchDB(
       `${process.env.api_url}/couchproxy/chat_users_public`
@@ -19,39 +25,21 @@ export const actions = {
     const p_channels = new PouchDB("channels");
     const channelsSync = PouchDB.replicate(c_channels, p_channels, {
       live: true,
-      retry: true
+      retry: true,
+      checkpoint: "target"
     });
 
-    channelsSync.on("change", info => {
-      if (info.ok) {
-        for (const doc of info.docs) {
-          if (doc.owner === state.user.name) {
-            commit("user/addChannel", doc);
-          }
-        }
-      }
-    });
+    // channelsSync.on("change", info => {
+    //   console.log("info");
+    //   if (info.ok) {
+    //     for (const doc of info.docs) {
+    //       if (doc.owner === state.user.name) {
+    //         commit("user/addChannel", doc);
+    //       }
+    //     }
+    //   }
+    // });
 
-    this.$axios
-      .get("/couchproxy/_session")
-      .then(data => {
-        commit("user/setName", data.data.userCtx.name);
-
-        const key = "chat_channel_member_";
-        const channels = data.data.userCtx.roles
-          .filter(c => c.includes(key))
-          .map(c => c.replace(key, ""));
-
-        return c_channels.allDocs({
-          include_docs: true,
-          keys: channels
-        });
-      })
-      .then(data => {
-        commit("user/setChannels", data.rows);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    commit("inited");
   }
 };
