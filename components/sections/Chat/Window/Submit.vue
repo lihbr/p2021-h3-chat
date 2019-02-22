@@ -41,6 +41,9 @@ export default {
     data() {
       return this.$store.state.lang.text.sections.chat.channel.submit;
     },
+    currentChannel() {
+      return this.$store.state.chat.current.channel;
+    },
     placeholder() {
       return `${this.data.placeholder} ${this.channel.name}`;
     },
@@ -52,33 +55,37 @@ export default {
     }
   },
   mounted() {
-    this.channelDB = new PouchDB(`chat_channel_${this.$route.params.slug}`);
+    this.channelDB = new PouchDB(
+      `${process.env.api_url}/couchproxy/chat_channel_${
+        this.currentChannel.slug
+      }`
+    );
   },
   methods: {
     send(e) {
       e.preventDefault();
 
-      const now = Date.now();
+      if (!this.showPlaceholder) {
+        const now = Date.now();
 
-      const options = {
-        _id: `${now}_${Math.random()}`,
-        author: this.userName,
-        date: now,
-        msg: this.message,
-        edited: false
-      };
+        const options = {
+          _id: `${now}_${Math.random()}`,
+          author: this.userName,
+          date: now,
+          msg: this.message,
+          edited: false
+        };
 
-      this.channelDB
-        .put(options)
-        .then(data => {
-          console.log(data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
+        this.channelDB
+          .put(options)
+          .then(data => {})
+          .catch(error => {
+            console.error(error);
+          });
 
-      this.message = "";
-      this.$refs.messageContent.innerText = "";
+        this.message = "";
+        this.$refs.messageContent.innerText = "";
+      }
     }
   }
 };

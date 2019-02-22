@@ -79,14 +79,16 @@ export default {
           this.clearMessages();
 
           const channel = new PouchDB(
-            `chat_channel_${this.$route.params.slug}`
-          );
-
-          const remote = new PouchDB(
             `${process.env.api_url}/couchproxy/chat_channel_${
               this.currentChannel.slug
             }`
           );
+
+          // const remote = new PouchDB(
+          //   `${process.env.api_url}/couchproxy/chat_channel_${
+          //     this.currentChannel.slug
+          //   }`
+          // );
 
           channel.info((err, info) => {
             channel
@@ -102,11 +104,11 @@ export default {
               });
           });
 
-          channel.sync(remote, {
-            live: true,
-            retry: true,
-            checkpoint: "remote"
-          });
+          // channel.sync(remote, {
+          //   live: true,
+          //   retry: true,
+          //   checkpoint: "remote"
+          // });
 
           this.joined = true;
         }
