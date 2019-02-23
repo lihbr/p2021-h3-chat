@@ -4,6 +4,8 @@ This is a school project at [HETIC](https://www.hetic.net/)
 
 Visit site [here](https://cevn.chat)!
 
+Demo account with name: `demo`, password: `demo`
+
 <!-- TOC -->
 
 - [CEVNchat](#cevnchat)
