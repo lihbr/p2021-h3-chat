@@ -16,6 +16,7 @@ exports._design_chan_locker = function(newDoc, oldDoc, userCtx) {
 
     var now = Date.now();
     var min = now - 60000;
+    var max = now + 10000;
 
     var docDate = parseInt(newDoc._id.split("_")[0]);
 
@@ -23,7 +24,7 @@ exports._design_chan_locker = function(newDoc, oldDoc, userCtx) {
       throw { forbidden: "doc._id date part does not match doc.date." };
     } else if (newDoc.date < min) {
       throw { forbidden: "doc.date is too old, retry." };
-    } else if (newDoc.date > now) {
+    } else if (newDoc.date > max) {
       throw { forbidden: "doc.date cannot be from the future." };
     }
   }

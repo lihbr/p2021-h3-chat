@@ -44,6 +44,7 @@ export const actions = {
       );
 
       commit("setChannel", data);
+      return 200;
     } catch (error) {
       return this.$router.push("/");
     }

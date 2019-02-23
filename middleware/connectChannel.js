@@ -1,3 +1,3 @@
 export default async ({ store, params }) => {
-  return store.dispatch("chat/current/getChannel", params.slug);
+  await store.dispatch("chat/current/getChannel", params.slug);
 };

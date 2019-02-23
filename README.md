@@ -8,8 +8,10 @@ Visit site [here](https://cevn.chat)!
 
 - [CEVNchat](#cevnchat)
   - [Features](#features)
-  - [WIP Features](#wip-features)
-  - [Planned Features](#planned-features)
+    - [Current](#current)
+    - [WIP](#wip)
+    - [Planned](#planned)
+  - [Known Bugs](#known-bugs)
   - [Technologies](#technologies)
     - [Front](#front)
     - [Back](#back)
@@ -30,6 +32,8 @@ Visit site [here](https://cevn.chat)!
 
 ## Features
 
+### Current
+
 Following features are the ones that are integrated **both** on the frontend and on the backend
 
 - User
@@ -42,14 +46,14 @@ Following features are the ones that are integrated **both** on the frontend and
   - Share link to invite
   - Send messages
 
-## WIP Features
+### WIP
 
 Following features are the ones that are either implemented on the frontend **or** the backend
 
 - User
   - Change Password _(backend only)_
 
-## Planned Features
+### Planned
 
 The following features are **some** of the planned ones
 
@@ -60,6 +64,10 @@ The following features are **some** of the planned ones
 - Channel
   - Edit profile informations
   - Leave channel
+
+## Known Bugs
+
+- Timezone may mess up date checkup.
 
 ## Technologies
 
@@ -299,3 +307,4 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Refactor API to add previous succes on chained query (see signup or create route)
 - Refactor Frontend to separate clearly PouchDB from Vue.js
 - Think about mobile responsive
+- Set database keys and config in a cevn.config.js file

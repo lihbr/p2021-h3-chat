@@ -1,5 +1,5 @@
 export const state = () => ({
-  name: "",
+  name: null,
   channels: []
 });
 
@@ -45,11 +45,12 @@ export const actions = {
         );
 
         commit("setChannels", data.rows);
+        return 200;
       } else {
         return this.$router.push(`/connect${route ? `/${route}` : ""}`);
       }
     } catch (error) {
-      console.error(error);
+      return console.error(error);
     }
   }
 };
