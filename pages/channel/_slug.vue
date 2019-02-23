@@ -78,7 +78,6 @@ export default {
     join() {
       if (!this.inited) {
         if (this.sync) {
-          console.log("oui");
           this.sync.cancel();
         }
         if (!this.userChannels.find(d => d.slug === this.currentChannel.slug)) {
