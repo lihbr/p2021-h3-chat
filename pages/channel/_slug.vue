@@ -51,6 +51,9 @@ export default {
     userChannels() {
       return this.$store.state.chat.user.channels;
     },
+    sync() {
+      return this.$store.state.chat.current.sync;
+    },
     data() {
       return this.$store.state.lang.text.sections.chat.channel;
     }
@@ -66,29 +69,32 @@ export default {
   methods: {
     ...mapMutations({
       clearMessages: "chat/current/clearMessages",
-      addMessage: "chat/current/addMessage"
+      addMessage: "chat/current/addMessage",
+      setSync: "chat/current/setSync"
     }),
     ...mapActions({
       getUser: "chat/user/get"
     }),
     join() {
       if (!this.inited) {
+        if (this.sync) {
+          console.log("oui");
+          this.sync.cancel();
+        }
         if (!this.userChannels.find(d => d.slug === this.currentChannel.slug)) {
           this.joined = false;
         } else {
           this.clearMessages();
 
           const channel = new PouchDB(
+            `chat_channel_${this.currentChannel.slug}`
+          );
+
+          const remote = new PouchDB(
             `${process.env.api_url}/couchproxy/chat_channel_${
               this.currentChannel.slug
             }`
           );
-
-          // const remote = new PouchDB(
-          //   `${process.env.api_url}/couchproxy/chat_channel_${
-          //     this.currentChannel.slug
-          //   }`
-          // );
 
           channel.info((err, info) => {
             channel
@@ -104,11 +110,13 @@ export default {
               });
           });
 
-          // channel.sync(remote, {
-          //   live: true,
-          //   retry: true,
-          //   checkpoint: "remote"
-          // });
+          const sync = PouchDB.sync(channel, remote, {
+            live: true,
+            retry: true,
+            checkpoint: "target"
+          });
+
+          this.setSync(sync);
 
           this.joined = true;
         }

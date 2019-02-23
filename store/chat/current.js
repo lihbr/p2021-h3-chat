@@ -1,7 +1,8 @@
 export const state = () => ({
   messages: [],
   lastMessage: {},
-  channel: null
+  channel: null,
+  sync: null
 });
 
 export const mutations = {
@@ -33,6 +34,9 @@ export const mutations = {
 
       state.messages = newArr;
     }
+  },
+  setSync(state, sync) {
+    state.sync = sync;
   }
 };
 

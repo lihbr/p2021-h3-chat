@@ -27,6 +27,7 @@ Demo account with name: `demo`, password: `demo`
     - [Change Password](#change-password)
     - [Create Channel](#create-channel)
     - [Join Channel](#join-channel)
+    - [Couch server](#couch-server)
   - [Build Setup](#build-setup)
   - [TODO](#todo)
 
@@ -274,6 +275,20 @@ Host: localhost:5984
     "ok": true
   }
 }
+```
+
+### Couch server
+
+> This route is the CouchDB endpoint one
+
+**Request:**
+
+```http
+ALL /api/couchproxy/* HTTP/1.1
+Accept: application/json
+Host: localhost:5984
+
+"potential json"
 ```
 
 ## Build Setup

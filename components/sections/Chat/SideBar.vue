@@ -26,7 +26,7 @@ export default {
     // Scrollbar.init(this.$refs.listsContainer);
   },
   destroyed() {
-    Scrollbar.destroy(this.$refs.listsContainer);
+    // Scrollbar.destroy(this.$refs.listsContainer);
   }
 };
 </script>

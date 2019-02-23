@@ -23,22 +23,6 @@ export const actions = {
 
     // Local
     const p_channels = new PouchDB("channels");
-    const channelsSync = PouchDB.replicate(c_channels, p_channels, {
-      live: true,
-      retry: true,
-      checkpoint: "target"
-    });
-
-    // channelsSync.on("change", info => {
-    //   console.log("info");
-    //   if (info.ok) {
-    //     for (const doc of info.docs) {
-    //       if (doc.owner === state.user.name) {
-    //         commit("user/addChannel", doc);
-    //       }
-    //     }
-    //   }
-    // });
 
     commit("inited");
   }
