@@ -296,3 +296,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Integrate express validator
 - Destroy local db on logout
+- Refactor API to add previous succes on chained query (see signup or create route)
+- Refactor Frontend to separate clearly PouchDB from Vue.js
+- Think about mobile responsive
