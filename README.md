@@ -15,8 +15,8 @@ Demo account with name: `demo`, password: `demo`
     - [Planned](#planned)
   - [Known Bugs](#known-bugs)
   - [Technologies](#technologies)
-    - [Front](#front)
-    - [Back](#back)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
   - [Project structure](#project-structure)
     - [Project's root](#projects-root)
     - [Server](#server)
@@ -74,16 +74,16 @@ The following features are **some** of the planned ones
 
 ## Technologies
 
-### Front
+### Frontend
 
 - **[Vue.js](https://vuejs.org/)**, a JavasScript Framework for building User Interfaces
 - **[Nuxt.js](https://fr.nuxtjs.org/)**, a Vue.js Framework mainly providing a common project structure for Vue.js and handling Server Side Rendering
-- **[Vuex](https://vuex.vuejs.org/)**, a state management pattern and library for Vue.js
-- **[PouchDB](https://pouchdb.com/)**, a Front End database library
+- **[Vuex](https://vuex.vuejs.org/)**, a State Management Pattern and Library for Vue.js
+- **[PouchDB](https://pouchdb.com/)**, a Frontend Database Library
 
-### Back
+### Backend
 
-- [Node.js](https://nodejs.org/en/), aJavascript runtime
+- [Node.js](https://nodejs.org/en/), a Javascript runtime
 - [Express.js](https://expressjs.com/), a Node.js Framework
 - [CouchDB](http://couchdb.apache.org/), a NoSQL Database
 
@@ -322,6 +322,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Integrate express validator
 - Destroy local db on logout
 - Refactor API to add previous succes on chained query (see signup or create route)
-- Refactor Frontend to separate clearly PouchDB from Vue.js
+- Refactor frontend to separate clearly PouchDB from Vue.js
 - Think about mobile responsive
-- Set database keys and config in a cevn.config.js file
+- Set database keys (i.e. chat_channel_member_SLUG) and config in a cevn.config.js file
