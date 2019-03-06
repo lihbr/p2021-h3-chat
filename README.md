@@ -321,7 +321,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Integrate express validator
 - Destroy local db on logout
-- Refactor API to add previous succes on chained query (see signup or create route)
+- Refactor API to add previous success on chained query (see signup or create route)
 - Refactor frontend to separate clearly PouchDB from Vue.js
 - Think about mobile responsive
 - Set database keys (i.e. chat_channel_member_SLUG) and config in a cevn.config.js file
