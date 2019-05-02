@@ -23,7 +23,7 @@ html
   display flex
   flex-flow column nowrap
   justify-content space-between
-  overflow hidden
+  // overflow hidden
 
   // @media screen and (max-width: mobile)
   //   overflow inherit
