@@ -83,9 +83,9 @@ The following features are **some** of the planned ones
 
 ### Backend
 
-- [Node.js](https://nodejs.org/en/), a Javascript runtime
-- [Express.js](https://expressjs.com/), a Node.js Framework
-- [CouchDB](http://couchdb.apache.org/), a NoSQL Database
+- **[Node.js](https://nodejs.org/en/)**, a Javascript runtime
+- **[Express.js](https://expressjs.com/)**, a Node.js Framework
+- **[CouchDB](http://couchdb.apache.org/)**, a NoSQL Database
 
 ## Project structure
 
