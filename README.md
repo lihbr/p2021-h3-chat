@@ -109,12 +109,12 @@ The following features are **some** of the planned ones
 
 ```bash
 ./server
-├───controllers > handling requests / responses
-├───design > couchdb designs
-├───helpers > helpers functions
-├───middlewares > not used
-├───models > database interactions
-└───routes > routes declaration
+├─── controllers > handling requests / responses
+├─── design > couchdb designs
+├─── helpers > helpers functions
+├─── middlewares > not used
+├─── models > database interactions
+└─── routes > routes declaration
 ```
 
 ## CouchDB structure
