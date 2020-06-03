@@ -2,7 +2,7 @@
   "name": "h3-p2021-e19-chat",
   "version": "1.0.0",
   "description": "A simple chat project",
-  "author": "edhbr",
+  "author": "lihbr <hello@lihbr.com> (https://lihbr.com)",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
